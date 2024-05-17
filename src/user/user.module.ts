@@ -1,11 +1,21 @@
 import { Module, Provider } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CommandHandlers } from './commands';
 import { UserController } from './controllers';
 import { TypeOrmUserEntities } from './entities';
-import { UserReadRepository, UserWriteRepository } from './repositories';
+import {
+  DatingHistoryWriteRepository,
+  UserReadRepository,
+  UserWriteRepository,
+} from './repositories';
 import { UserService } from './services';
-import { USER_READ_REPOSITORY, USER_SERVICE, USER_WRITE_REPOSITORY } from './user.constant';
+import {
+  DATING_HISTORY_WRITE_REPOSITORY,
+  USER_READ_REPOSITORY,
+  USER_SERVICE,
+  USER_WRITE_REPOSITORY,
+} from './user.constant';
 
 const services: Provider<any>[] = [
   {
@@ -23,12 +33,16 @@ const repositories: Provider<any>[] = [
     provide: USER_WRITE_REPOSITORY,
     useClass: UserWriteRepository,
   },
+  {
+    provide: DATING_HISTORY_WRITE_REPOSITORY,
+    useClass: DatingHistoryWriteRepository,
+  },
 ];
 
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature(TypeOrmUserEntities)],
   controllers: [UserController],
-  providers: [...services, ...repositories],
+  providers: [...CommandHandlers, ...services, ...repositories],
   exports: [...services],
 })
 export class UserModule {}

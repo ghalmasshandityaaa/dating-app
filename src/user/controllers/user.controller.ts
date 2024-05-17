@@ -1,11 +1,13 @@
-import { Controller, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
+import { Controller, HttpCode, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
 import { CommandBus } from '@nestjs/cqrs';
 import { Identity } from '../../common/decorators';
+import { JwtAuthGuard } from '../../common/guards';
 import { IIdentity } from '../../common/interfaces';
 import { AddHistoryCommand } from '../commands';
 import { BaseIdParamDto } from '../dtos';
 import { DatingHistoryType } from '../user.constant';
 
+@UseGuards(JwtAuthGuard)
 @Controller({
   path: 'users',
 })
