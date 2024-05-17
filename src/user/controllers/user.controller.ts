@@ -22,7 +22,7 @@ export class UserController {
   @Post(':id/like')
   async register(@Identity() identity: IIdentity, @Param() param: BaseIdParamDto) {
     const command = new AddHistoryCommand({
-      userId: identity.id,
+      identity,
       partnerId: param.id,
       type: DatingHistoryType.LIKE,
     });
@@ -33,7 +33,7 @@ export class UserController {
   @Post(':id/pass')
   async login(@Identity() identity: IIdentity, @Param() param: BaseIdParamDto) {
     const command = new AddHistoryCommand({
-      userId: identity.id,
+      identity,
       partnerId: param.id,
       type: DatingHistoryType.PASS,
     });

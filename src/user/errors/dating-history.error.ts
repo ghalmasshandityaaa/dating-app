@@ -31,4 +31,19 @@ export namespace DatingHistoryError {
       );
     }
   }
+
+  // cannot match with own user
+  export class TooManySwipes extends HttpException {
+    constructor() {
+      super(
+        {
+          ok: false,
+          error: {
+            code: 'history/too-many-swipes',
+          },
+        } as HttpErrorResponse,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+  }
 }

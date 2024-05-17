@@ -1,8 +1,9 @@
 import { ICommand } from '@nestjs/cqrs';
+import { IIdentity } from '../../../common/interfaces';
 import { DatingHistoryType } from '../../../user/user.constant';
 
 class Props {
-  readonly userId: string;
+  readonly identity: IIdentity;
   readonly partnerId: string;
   readonly type: DatingHistoryType;
 }

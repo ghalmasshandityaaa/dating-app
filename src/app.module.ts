@@ -21,7 +21,7 @@ import { UserModule } from './user/user.module';
     ThrottlerModule.forRoot([
       {
         ttl: 60000,
-        limit: 10,
+        limit: 100,
       },
     ]),
     LoggerModule.forRootAsync({

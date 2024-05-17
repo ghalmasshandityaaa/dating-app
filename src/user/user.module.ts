@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CommandHandlers } from './commands';
 import { UserController } from './controllers';
 import { TypeOrmUserEntities } from './entities';
+import { Listeners } from './listeners';
 import { QueryHandlers } from './queries';
 import {
   DatingHistoryWriteRepository,
@@ -43,7 +44,7 @@ const repositories: Provider<any>[] = [
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature(TypeOrmUserEntities)],
   controllers: [UserController],
-  providers: [...CommandHandlers, ...QueryHandlers, ...services, ...repositories],
+  providers: [...CommandHandlers, ...QueryHandlers, ...Listeners, ...services, ...repositories],
   exports: [...services],
 })
 export class UserModule {}

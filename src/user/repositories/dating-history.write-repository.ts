@@ -13,14 +13,14 @@ export class DatingHistoryWriteRepository implements IDatingHistoryWriteReposito
   ) {}
 
   async todayExist(userId: string, partnerId: string): Promise<boolean> {
-    const now = new Date();
+    const today = new Date();
     const result = await this.dataSource
       .createQueryBuilder(TypeOrmDatingHistoryEntity, 'history')
       .where('history.userId = :userId', { userId })
       .andWhere('history.partnerId = :partnerId', { partnerId })
       .andWhere('history.createdAt BETWEEN :start AND :end', {
-        start: startOfDay(now),
-        end: endOfDay(now),
+        start: startOfDay(today),
+        end: endOfDay(today),
       })
       .getOne();
 
@@ -39,5 +39,19 @@ export class DatingHistoryWriteRepository implements IDatingHistoryWriteReposito
         createdAt: new Date(),
       })
       .execute();
+  }
+
+  async countTodaySwipe(userId: string): Promise<number> {
+    const today = new Date();
+    const result = await this.dataSource
+      .createQueryBuilder(TypeOrmDatingHistoryEntity, 'history')
+      .where('history.userId = :userId', { userId })
+      .andWhere('history.createdAt BETWEEN :start AND :end', {
+        start: startOfDay(today),
+        end: endOfDay(today),
+      })
+      .getCount();
+
+    return result;
   }
 }

@@ -1,6 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
+import { Package } from '../../../common/interfaces';
 import { DatingHistoryError } from '../../../user/errors';
 import { IDatingHistoryWriteRepository } from '../../../user/interfaces';
 import { DATING_HISTORY_WRITE_REPOSITORY } from '../../../user/user.constant';
@@ -23,14 +24,22 @@ export class AddHistoryHandler implements ICommandHandler<AddHistoryCommand, voi
     this.logger.trace(`BEGIN`);
     this.logger.info({ command });
 
-    if (command.userId === command.partnerId) {
+    if (command.identity.id === command.partnerId) {
       throw new DatingHistoryError.MatchOwnUser();
     }
 
-    const exist = await this.writeRepository.todayExist(command.userId, command.partnerId);
-    if (exist) throw new DatingHistoryError.CannotTwice();
+    const [exist, total] = await Promise.all([
+      this.writeRepository.todayExist(command.identity.id, command.partnerId),
+      this.writeRepository.countTodaySwipe(command.identity.id),
+    ]);
 
-    await this.writeRepository.create(command.userId, command.partnerId, command.type);
+    if (exist) {
+      throw new DatingHistoryError.CannotTwice();
+    } else if (command.identity.package !== Package.NO_QUOTA) {
+      if (total >= 10) throw new DatingHistoryError.TooManySwipes();
+    }
+
+    await this.writeRepository.create(command.identity.id, command.partnerId, command.type);
 
     this.logger.trace(`END`);
   }
