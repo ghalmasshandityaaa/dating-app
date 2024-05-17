@@ -1,14 +1,12 @@
 import { Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
-import {
-  TOKEN_SERVICE,
-  USER_READ_REPOSITORY,
-  USER_WRITE_REPOSITORY,
-} from '../../../auth/auth.constant';
-import { AuthDomain } from '../../../auth/domains';
+import { TOKEN_SERVICE } from '../../../auth/auth.constant';
 import { AuthError } from '../../../auth/errors';
-import { ITokenService, IUserReadRepository, IUserWriteRepository } from '../../../auth/interfaces';
+import { ITokenService } from '../../../auth/interfaces';
+import { UserDomain } from '../../../user/domains';
+import { IUserService } from '../../../user/interfaces';
+import { USER_SERVICE } from '../../../user/user.constant';
 import { RegisterCommand } from '../impl';
 import { RegisterResult } from '../results/register.result';
 
@@ -17,12 +15,10 @@ export class RegisterHandler implements ICommandHandler<RegisterCommand, Registe
   constructor(
     @InjectPinoLogger(RegisterHandler.name)
     private readonly logger: PinoLogger,
-    @Inject(USER_READ_REPOSITORY)
-    private readonly readRepository: IUserReadRepository,
-    @Inject(USER_WRITE_REPOSITORY)
-    private readonly writeRepository: IUserWriteRepository,
+    @Inject(USER_SERVICE)
+    private readonly userService: IUserService,
     @Inject(TOKEN_SERVICE)
-    private readonly service: ITokenService,
+    private readonly tokenService: ITokenService,
   ) {}
 
   /**
@@ -33,17 +29,17 @@ export class RegisterHandler implements ICommandHandler<RegisterCommand, Registe
     this.logger.trace(`BEGIN`);
     this.logger.info({ command });
 
-    const user = await this.readRepository.findByUsername(command.username);
+    const user = await this.userService.findByUsername(command.username);
     if (user) {
       throw new AuthError.UsernameTaken();
     }
 
-    const auth = AuthDomain.create(command);
-    await this.writeRepository.create(auth);
+    const auth = UserDomain.create(command);
+    await this.userService.create(auth);
 
     const [accessToken, refreshToken] = await Promise.all([
-      this.service.generateAccessToken({ id: auth.id, package: auth.props.package }),
-      this.service.generateRefreshToken({ id: auth.id, package: auth.props.package }),
+      this.tokenService.generateAccessToken({ id: auth.id, package: auth.props.package }),
+      this.tokenService.generateRefreshToken({ id: auth.id, package: auth.props.package }),
     ]);
 
     const result = new RegisterResult(accessToken, refreshToken);

@@ -13,6 +13,7 @@ import { LoggerConfigModule, LoggerConfigService } from './config/logger';
 import { TypeOrmOptionsProvider } from './database/config';
 import { LoggerModule } from './logger/logger.module';
 import { PackageModule } from './package/package.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { PackageModule } from './package/package.module';
     ConfigModule,
     AuthModule,
     PackageModule,
+    UserModule,
   ],
   providers: [
     {

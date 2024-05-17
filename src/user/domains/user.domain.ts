@@ -17,7 +17,7 @@ export type CreateProps = Omit<Props, 'createdAt' | 'updatedAt' | 'package'>;
 /**
  *
  */
-export class AuthDomain extends Entity<Props, string> {
+export class UserDomain extends Entity<Props, string> {
   constructor(props: Props, id?: string) {
     super(props, id);
   }
@@ -27,8 +27,8 @@ export class AuthDomain extends Entity<Props, string> {
    * @param props
    * @returns
    */
-  public static create(props: CreateProps): AuthDomain {
-    const entity = new AuthDomain({
+  public static create(props: CreateProps): UserDomain {
+    const entity = new UserDomain({
       ...props,
       password: hashSync(props.password, 10),
       package: Package.STANDARD,
@@ -44,7 +44,7 @@ export class AuthDomain extends Entity<Props, string> {
    * @param id
    * @returns
    */
-  public static rebuild(props: Props, id: string): AuthDomain {
-    return new AuthDomain(props, id);
+  public static rebuild(props: Props, id: string): UserDomain {
+    return new UserDomain(props, id);
   }
 }

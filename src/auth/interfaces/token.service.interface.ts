@@ -1,7 +1,7 @@
-import { AuthDomain } from '../domains';
-import { UserQueryModel } from './user.query-model.interface';
+import { IIdentity } from '../../common/interfaces';
 
-export interface IUserService {
-  findById(id: string): Promise<UserQueryModel | undefined>;
-  findByIdDomain(id: string): Promise<AuthDomain | undefined>;
+export interface ITokenService {
+  validate(token: string): Promise<IIdentity>;
+  generateAccessToken(identity: IIdentity): Promise<string>;
+  generateRefreshToken(identity: IIdentity): Promise<string>;
 }

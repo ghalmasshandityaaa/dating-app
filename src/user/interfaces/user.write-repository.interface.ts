@@ -1,8 +1,8 @@
 import { Package } from '../../common/interfaces';
-import { AuthDomain } from '../domains';
+import { UserDomain } from '../domains';
 
 export interface IUserWriteRepository {
-  findById(id: string): Promise<AuthDomain | undefined>;
-  create(entity: AuthDomain): Promise<void>;
+  findById(id: string): Promise<UserDomain | undefined>;
+  create(entity: UserDomain): Promise<void>;
   updatePackage(id: string, pkg: Package): Promise<void>;
 }

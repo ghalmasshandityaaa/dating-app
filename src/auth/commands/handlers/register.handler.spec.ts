@@ -9,15 +9,12 @@ const loggerMock = {
   info: jest.fn(),
 };
 
-const readRepositoryMock = {
+const userServiceMock = {
+  create: jest.fn(),
   findByUsername: jest.fn(),
 };
 
-const writeRepositoryMock = {
-  create: jest.fn(),
-};
-
-const serviceMock = {
+const tokenServiceMock = {
   generateAccessToken: jest.fn(),
   generateRefreshToken: jest.fn(),
 };
@@ -28,9 +25,8 @@ describe('RegisterHandler', () => {
   beforeEach(() => {
     registerHandler = new RegisterHandler(
       loggerMock as any,
-      readRepositoryMock as any,
-      writeRepositoryMock as any,
-      serviceMock as any,
+      userServiceMock as any,
+      tokenServiceMock as any,
     );
   });
 
@@ -49,11 +45,11 @@ describe('RegisterHandler', () => {
 
     // Act
     const findByUsernameSpy = jest
-      .spyOn(readRepositoryMock, 'findByUsername')
+      .spyOn(userServiceMock, 'findByUsername')
       .mockResolvedValueOnce(null);
-    const createSpy = jest.spyOn(writeRepositoryMock, 'create');
-    const generateAccessTokenSpy = jest.spyOn(serviceMock, 'generateAccessToken');
-    const generateRefreshTokenSpy = jest.spyOn(serviceMock, 'generateRefreshToken');
+    const createSpy = jest.spyOn(userServiceMock, 'create');
+    const generateAccessTokenSpy = jest.spyOn(tokenServiceMock, 'generateAccessToken');
+    const generateRefreshTokenSpy = jest.spyOn(tokenServiceMock, 'generateRefreshToken');
     const execute = registerHandler.execute(command);
 
     // Assert
@@ -75,11 +71,11 @@ describe('RegisterHandler', () => {
 
     // Act
     const findByUsernameSpy = jest
-      .spyOn(readRepositoryMock, 'findByUsername')
+      .spyOn(userServiceMock, 'findByUsername')
       .mockResolvedValueOnce({});
-    const createSpy = jest.spyOn(writeRepositoryMock, 'create');
-    const generateAccessTokenSpy = jest.spyOn(serviceMock, 'generateAccessToken');
-    const generateRefreshTokenSpy = jest.spyOn(serviceMock, 'generateRefreshToken');
+    const createSpy = jest.spyOn(userServiceMock, 'create');
+    const generateAccessTokenSpy = jest.spyOn(tokenServiceMock, 'generateAccessToken');
+    const generateRefreshTokenSpy = jest.spyOn(tokenServiceMock, 'generateRefreshToken');
     const execute = registerHandler.execute(command);
 
     // Assert

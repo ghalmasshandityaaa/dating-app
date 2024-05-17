@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { USER_READ_REPOSITORY, USER_WRITE_REPOSITORY } from '../auth.constant';
-import { AuthDomain } from '../domains';
+import { UserDomain } from '../domains';
 import {
   IUserReadRepository,
   IUserService,
   IUserWriteRepository,
   UserQueryModel,
 } from '../interfaces';
+import { USER_READ_REPOSITORY, USER_WRITE_REPOSITORY } from '../user.constant';
 
 @Injectable()
 export class UserService implements IUserService {
@@ -21,7 +21,15 @@ export class UserService implements IUserService {
     return this.readRepository.findById(id);
   }
 
-  async findByIdDomain(id: string): Promise<AuthDomain | undefined> {
+  async findByIdDomain(id: string): Promise<UserDomain | undefined> {
     return this.writeRepository.findById(id);
+  }
+
+  async findByUsername(username: string): Promise<UserQueryModel | undefined> {
+    return this.readRepository.findByUsername(username);
+  }
+
+  async create(user: UserDomain): Promise<void> {
+    await this.writeRepository.create(user);
   }
 }

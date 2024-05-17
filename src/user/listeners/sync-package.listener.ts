@@ -2,8 +2,8 @@ import { Inject } from '@nestjs/common';
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 import { SyncUserPackageEvent } from '../../package/domains/events/sync-package.event';
-import { USER_WRITE_REPOSITORY } from '../auth.constant';
 import { IUserWriteRepository } from '../interfaces';
+import { USER_WRITE_REPOSITORY } from '../user.constant';
 
 @EventsHandler(SyncUserPackageEvent)
 export class SyncUserPackageListener implements IEventHandler<SyncUserPackageEvent> {

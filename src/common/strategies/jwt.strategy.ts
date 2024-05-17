@@ -2,9 +2,9 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-import { USER_SERVICE } from '../../auth/auth.constant';
 import { AuthError } from '../../auth/errors';
-import { IUserService } from '../../auth/interfaces';
+import { IUserService } from '../../user/interfaces';
+import { USER_SERVICE } from '../../user/user.constant';
 import { IIdentity } from '../interfaces';
 
 @Injectable()

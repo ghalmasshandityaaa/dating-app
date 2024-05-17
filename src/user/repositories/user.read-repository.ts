@@ -3,7 +3,7 @@ import { DataSource } from 'typeorm';
 import { TypeOrmUserEntity } from '../entities';
 import { IUserReadRepository, UserQueryModel } from '../interfaces';
 
-export class AuthReadRepository implements IUserReadRepository {
+export class UserReadRepository implements IUserReadRepository {
   constructor(
     @InjectDataSource()
     private readonly dataSource: DataSource,

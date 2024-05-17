@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { Package } from '../../common/interfaces';
-import { AuthDomain } from '../domains';
+import { UserDomain } from '../domains';
 import { UserQueryModel } from '../interfaces';
 import { UserService } from './user.service';
 
@@ -68,5 +68,5 @@ const stub = (): UserQueryModel => {
 };
 
 const toDomain = (user: UserQueryModel) => {
-  return AuthDomain.rebuild({ ...user }, user.id);
+  return UserDomain.rebuild({ ...user }, user.id);
 };
