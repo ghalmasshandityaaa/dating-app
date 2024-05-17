@@ -1,3 +1,3 @@
-import { BuyPackageHandler } from './buy-package.handler';
+import { PurchasePackageHandler } from './purchase-package.handler';
 
-export const CommandHandlers = [BuyPackageHandler];
+export const CommandHandlers = [PurchasePackageHandler];

@@ -6,12 +6,12 @@ import { UserPackageAggregate } from '../../../package/domains';
 import { PackageError } from '../../../package/errors';
 import { IUserPackageWriteRepository } from '../../../package/interfaces';
 import { USER_PACKAGE_WRITE_REPOSITORY } from '../../../package/package.constant';
-import { BuyPackageCommand } from '../impl';
+import { PurchasePackageCommand } from '../impl';
 
-@CommandHandler(BuyPackageCommand)
-export class BuyPackageHandler implements ICommandHandler<BuyPackageCommand, void> {
+@CommandHandler(PurchasePackageCommand)
+export class PurchasePackageHandler implements ICommandHandler<PurchasePackageCommand, void> {
   constructor(
-    @InjectPinoLogger(BuyPackageHandler.name)
+    @InjectPinoLogger(PurchasePackageHandler.name)
     private readonly logger: PinoLogger,
     @Inject(USER_PACKAGE_WRITE_REPOSITORY)
     private readonly repository: IUserPackageWriteRepository,
@@ -22,12 +22,12 @@ export class BuyPackageHandler implements ICommandHandler<BuyPackageCommand, voi
    *
    * @param command
    */
-  async execute(command: BuyPackageCommand): Promise<void> {
+  async execute(command: PurchasePackageCommand): Promise<void> {
     this.logger.trace(`BEGIN`);
     this.logger.info({ command });
 
     if (command.identity.package !== Package.STANDARD) {
-      this.logger.warn('cannot buy, already bought');
+      this.logger.warn('cannot purchase, already bought');
       throw new PackageError.AlreadyBought();
     }
 

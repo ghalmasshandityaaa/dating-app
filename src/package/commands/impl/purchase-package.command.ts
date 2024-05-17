@@ -6,7 +6,7 @@ class Props {
   readonly package: Package;
 }
 
-export class BuyPackageCommand extends Props implements ICommand {
+export class PurchasePackageCommand extends Props implements ICommand {
   constructor(props: Props) {
     super();
     Object.assign(this, props);

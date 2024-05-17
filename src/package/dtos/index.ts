@@ -1,1 +1,1 @@
-export * from './buy-package.body.dto';
+export * from './purchase-package.body.dto';

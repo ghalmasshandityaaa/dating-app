@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
 import { Package } from '../../../common/interfaces';
-import { UserPackageAggregate } from '../../../package/domains';
-import { PackageError } from '../../../package/errors';
-import { BuyPackageCommand } from '../impl';
-import { BuyPackageHandler } from './buy-package.handler';
+import { UserPackageAggregate } from '../../domains';
+import { PackageError } from '../../errors';
+import { PurchasePackageCommand } from '../impl';
+import { PurchasePackageHandler } from './purchase-package.handler';
 
 const loggerMock = {
   trace: jest.fn(),
@@ -23,11 +23,11 @@ const userPackageMock = {
   commit: jest.fn(),
 };
 
-describe('BuyPackageHandler', () => {
-  let buyPackageHandler: BuyPackageHandler;
+describe('PurchasePackageHandler', () => {
+  let purchasePackageHandler: PurchasePackageHandler;
 
   beforeEach(() => {
-    buyPackageHandler = new BuyPackageHandler(
+    purchasePackageHandler = new PurchasePackageHandler(
       loggerMock as any,
       writeRepositoryMock as any,
       publisherMock as any,
@@ -40,7 +40,7 @@ describe('BuyPackageHandler', () => {
 
   it('should throw error given package already bought', async () => {
     // Arrange
-    const command: BuyPackageCommand = new BuyPackageCommand({
+    const command: PurchasePackageCommand = new PurchasePackageCommand({
       identity: {
         id: faker.string.uuid(),
         package: Package.VERIFIED,
@@ -52,7 +52,7 @@ describe('BuyPackageHandler', () => {
     const createSpy = jest.spyOn(writeRepositoryMock, 'create');
     const mergeSpy = jest.spyOn(publisherMock, 'mergeObjectContext');
     const userPackageSpy = jest.spyOn(userPackageMock, 'commit');
-    const execute = buyPackageHandler.execute(command);
+    const execute = purchasePackageHandler.execute(command);
 
     // Assert
     await expect(execute).rejects.toBeInstanceOf(PackageError.AlreadyBought);
@@ -63,7 +63,7 @@ describe('BuyPackageHandler', () => {
 
   it('should work', async () => {
     // Arrange
-    const command: BuyPackageCommand = new BuyPackageCommand({
+    const command: PurchasePackageCommand = new PurchasePackageCommand({
       identity: {
         id: faker.string.uuid(),
         package: Package.STANDARD,
@@ -78,7 +78,7 @@ describe('BuyPackageHandler', () => {
     const createSpy = jest.spyOn(writeRepositoryMock, 'create');
     const mergeSpy = jest.spyOn(publisherMock, 'mergeObjectContext');
     const userPackageSpy = jest.spyOn(userPackageMock, 'commit');
-    const execute = buyPackageHandler.execute(command);
+    const execute = purchasePackageHandler.execute(command);
 
     // Assert
     await expect(execute).resolves.not.toThrow();

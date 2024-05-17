@@ -1,1 +1,1 @@
-export * from './buy-package.command';
+export * from './purchase-package.command';

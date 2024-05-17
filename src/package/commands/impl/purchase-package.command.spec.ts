@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
 import { Package } from '../../../common/interfaces';
-import { BuyPackageCommand } from './buy-package.command';
+import { PurchasePackageCommand } from './purchase-package.command';
 
-describe('BuyPackageCommand', () => {
-  it('should create a new BuyPackageCommand instance', () => {
+describe('PurchasePackageCommand', () => {
+  it('should create a new PurchasePackageCommand instance', () => {
     // Arrange
     const props = {
       identity: {
@@ -14,10 +14,10 @@ describe('BuyPackageCommand', () => {
     };
 
     // Act
-    const command = new BuyPackageCommand(props);
+    const command = new PurchasePackageCommand(props);
 
     // Assert
-    expect(command).toBeInstanceOf(BuyPackageCommand);
+    expect(command).toBeInstanceOf(PurchasePackageCommand);
     expect(command.identity).toBe(props.identity);
     expect(command.package).toBe(props.package);
   });
