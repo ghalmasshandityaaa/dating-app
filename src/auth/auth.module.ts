@@ -14,6 +14,7 @@ import {
 import { CommandHandlers } from './commands';
 import { AuthController } from './controllers';
 import { TypeOrmAuthEntities } from './entities';
+import { Listeners } from './listeners';
 import { AuthReadRepository, AuthWriteRepository } from './repositories';
 import { TokenService, UserService } from './services';
 
@@ -60,7 +61,7 @@ const services: Provider<any>[] = [
     }),
   ],
   controllers: [AuthController],
-  providers: [...CommandHandlers, ...repositories, ...services, JwtStrategy],
+  providers: [...CommandHandlers, ...repositories, ...services, ...Listeners, JwtStrategy],
   exports: [...services],
 })
 export class AuthModule {}

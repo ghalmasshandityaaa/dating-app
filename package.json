@@ -21,9 +21,9 @@
     "prepare": "husky install",
     "typeorm": "typeorm",
     "migration:create": "typeorm migration:create",
-    "migration:show": "tsc && typeorm migration:show -d dist/src/database/config/data-source.js",
-    "migration:run": "tsc && typeorm migration:run -t -d dist/src/database/config/data-source.js",
-    "migration:revert": "tsc && typeorm migration:revert -d dist/src/database/config/data-source.js"
+    "migration:show": "tsc && typeorm migration:show -d dist/database/config/data-source.js",
+    "migration:run": "tsc && typeorm migration:run -t -d dist/database/config/data-source.js",
+    "migration:revert": "tsc && typeorm migration:revert -d dist/database/config/data-source.js"
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.1",

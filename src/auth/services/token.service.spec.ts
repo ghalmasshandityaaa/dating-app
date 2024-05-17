@@ -38,7 +38,7 @@ describe('TokenService', () => {
     // Assert
     expect(accessToken).toBe(expectedAccessToken);
     expect(jwtServiceMock.signAsync).toHaveBeenCalledWith(
-      { sub: identity.id.toString() },
+      { sub: identity.id.toString(), package: identity.package },
       {
         expiresIn: 'expiration_time',
         secret: 'jwt_secret',
@@ -63,7 +63,7 @@ describe('TokenService', () => {
     // Assert
     expect(refreshToken).toBe(expectedRefreshToken);
     expect(jwtServiceMock.signAsync).toHaveBeenCalledWith(
-      { sub: identity.id.toString() },
+      { sub: identity.id.toString(), package: identity.package },
       {
         expiresIn: 'expiration_time',
         secret: 'jwt_secret',
@@ -76,14 +76,14 @@ describe('TokenService', () => {
     // Arrange
     const token = 'token_value';
     const id = faker.string.alphanumeric() as any;
-    const decodedToken = { sub: id };
+    const decodedToken = { sub: id, package: Package.VERIFIED };
     jwtServiceMock.verifyAsync.mockResolvedValueOnce(decodedToken);
 
     // Act
     const result = await tokenService.validate(token);
 
     // Assert
-    expect(result).toEqual({ id: id });
+    expect(result).toEqual({ id: id, package: Package.VERIFIED });
     expect(jwtServiceMock.verifyAsync).toHaveBeenCalled();
   });
 });

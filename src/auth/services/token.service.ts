@@ -23,7 +23,7 @@ export class TokenService implements ITokenService {
 
   async generateAccessToken(identity: IIdentity): Promise<string> {
     const options = this.getOptions('access');
-    const payload = { sub: identity.id };
+    const payload = { sub: identity.id, package: identity.package };
     const token = this.jwtService.signAsync(payload, options);
 
     return token;
@@ -31,7 +31,7 @@ export class TokenService implements ITokenService {
 
   async generateRefreshToken(identity: IIdentity): Promise<string> {
     const options = this.getOptions('refresh');
-    const payload = { sub: identity.id };
+    const payload = { sub: identity.id, package: identity.package };
     const token = await this.jwtService.signAsync(payload, options);
 
     return token;
