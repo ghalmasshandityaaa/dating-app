@@ -2,10 +2,10 @@ import { Inject } from '@nestjs/common';
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 import { Package } from '../../../common/interfaces';
-import { UserPackageAggregate } from '../../../package/domains';
-import { PackageError } from '../../../package/errors';
-import { IUserPackageWriteRepository } from '../../../package/interfaces';
-import { USER_PACKAGE_WRITE_REPOSITORY } from '../../../package/package.constant';
+import { UserPackageAggregate } from '../../domains';
+import { PackageError } from '../../errors';
+import { IUserPackageWriteRepository } from '../../interfaces';
+import { USER_PACKAGE_WRITE_REPOSITORY } from '../../package.constant';
 import { PurchasePackageCommand } from '../impl';
 
 @CommandHandler(PurchasePackageCommand)

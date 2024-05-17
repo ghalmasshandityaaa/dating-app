@@ -1,10 +1,11 @@
-import { Controller, HttpCode, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
-import { CommandBus } from '@nestjs/cqrs';
+import { Controller, Get, HttpCode, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Identity } from '../../common/decorators';
 import { JwtAuthGuard } from '../../common/guards';
 import { IIdentity } from '../../common/interfaces';
 import { AddHistoryCommand } from '../commands';
 import { BaseIdParamDto } from '../dtos';
+import { RandomUserQuery } from '../queries';
 import { DatingHistoryType } from '../user.constant';
 
 @UseGuards(JwtAuthGuard)
@@ -12,7 +13,10 @@ import { DatingHistoryType } from '../user.constant';
   path: 'users',
 })
 export class UserController {
-  constructor(private readonly commandBus: CommandBus) {}
+  constructor(
+    private readonly commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+  ) {}
 
   @HttpCode(HttpStatus.OK)
   @Post(':id/like')
@@ -34,5 +38,14 @@ export class UserController {
       type: DatingHistoryType.PASS,
     });
     return await this.commandBus.execute(command);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Get('random')
+  async random(@Identity() identity: IIdentity) {
+    const command = new RandomUserQuery({
+      id: identity.id,
+    });
+    return await this.queryBus.execute(command);
   }
 }
