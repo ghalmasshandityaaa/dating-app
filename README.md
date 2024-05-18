@@ -85,7 +85,7 @@ To create a seeder factory file (must with prefix `seed.<factory-name>.factory.t
 $ pnpm migration:create seed-<seed-name>
 ```
 
-And move seed inside the corresponding service's seed folder: `src/libs/database/src/seeds/index.ts`
+And move seed inside the corresponding service's seed folder: `src/database/seeds/index.ts`
 
 Add your migration to the `index.ts` (eg. `seeds/index.ts`)
 
@@ -94,7 +94,7 @@ Rule:
 - If your seeder uses constant data, please create a factory first
 - If you used factory files to store data, migrate them back for deletion (`down/revert code`)
 - If you don't use factory files, you can ignore the migration code back
-- If you use another module for seed data (eg. `StringUtils`), you must adjust path declaration with (eg. `../../../common/src/utils`) instead of (eg. `src/common`)
+- If you use another module for seed data (eg. `StringUtils`), you must adjust path declaration with (eg. `../../../common/utils`) instead of (eg. `src/common`)
 
 ## Execute Migrations
 
