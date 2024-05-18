@@ -1,73 +1,128 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Backend API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Stack
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This backend Dating App API is built using a robust stack to ensure efficiency, scalability, and ease of development. Here's a breakdown of the stack components:
 
-## Description
+- **Framework:** [Nestjs](https://nestjs.com/) - A progressive Node.js framework for building efficient and scalable server-side applications.
+- **Database:** [Postgres](https://www.postgresql.org/) - An advanced, enterprise-class open-source relational database system with a strong reputation for reliability, feature robustness, and performance.
+- **ORM:** [TypeOrm](https://typeorm.io/) - An ORM that allows developers to work with databases using TypeScript or JavaScript, providing support for multiple database types and seamless database migrations.
+- **Validation:** [Joi](https://joi.dev/) - A powerful schema description language and data validator for JavaScript, enabling robust validation of data inputs.
+- **Logging:** [Pino](https://getpino.io/) - A super fast, highly efficient logging library for Node.js applications, ensuring optimal performance in logging activities.
+- **Runtime:** [NodeJS](https://nodejs.org/en) - A JavaScript runtime built on Chrome's V8 JavaScript engine, enabling server-side scripting and development with high performance and scalability.
+- **Tokenization:** [JWT](https://jwt.io/) - A compact, URL-safe means of representing claims to be transferred between two parties, widely used for securing API authentication.
+- **Test:** [Jest](https://jestjs.io/) - A delightful JavaScript testing framework with a focus on simplicity, providing a rich API for writing various types of tests.
+- **Security:** [Helmet](https://helmetjs.github.io/) - Middleware that helps secure Express/Node.js applications by setting various HTTP headers, protecting against well-known web vulnerabilities.
+- **Command Query Responsibility Segregation (CQRS):** [CQRS](https://docs.nestjs.com/recipes/cqrs) - A design pattern that separates read and write operations, increasing performance, scalability, and security by isolating different parts of the system.
+- **Rate Limiter:** [Throttle](https://www.npmjs.com/package/express-rate-limit) - Middleware to limit repeated requests to public APIs and/or endpoints, protecting against denial-of-service attacks.
+- **Domain-Driven Design:** [DDD](https://www.dddcommunity.org/) - A methodology for designing complex software by reflecting real-world systems and concepts, ensuring the software structure matches business requirements.
+- **Event Sourcing:** [Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) - A pattern in which changes to application state are stored as a sequence of events, allowing for complete traceability and reconstruction of application state.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Tooling
 
-## Installation
+To facilitate development, the following tools are used:
 
-```bash
-$ pnpm install
+- **Builder:** [ESBuild](https://esbuild.github.io/) - An extremely fast JavaScript and TypeScript bundler.
+- **Linter:** [ESLint](https://eslint.org) - A pluggable and configurable linter tool for identifying and reporting on patterns in JavaScript.
+- **Formatting:** [Prettier](https://prettier.io/) - An opinionated code formatter that enforces a consistent style by parsing your code and re-printing it.
+- **Type-Checking:** [TSC](https://www.typescriptlang.org/docs/handbook/compiler-options.html) - TypeScript Compiler, used to ensure type safety and catch errors early in the development process.
+- **Package Manager:** [pnpm](https://pnpm.io/) - A fast, disk space-efficient package manager that saves every installed package in a global store.
+- **Standardization:** [Conventional + Husky](https://github.com/conventional-changelog/commitlint) - A tool to enforce conventional commit messages and Git hooks.
+
+## Installing Dependencies
+
+To install the required dependencies for this project, use the following command:
+
+```sh
+pnpm install
 ```
 
-## Running the app
+This command will install all the necessary packages as specified in the package.json file.
 
-```bash
-# development
-$ pnpm run start
+## Starting the Server
 
-# watch mode
-$ pnpm run start:dev
+To start the server, use the following command:
 
-# production mode
-$ pnpm run start:prod
+```sh
+pnpm start # or pnpm start:prod for start the production server
 ```
 
-## Test
+## Building the Server
 
-```bash
-# unit tests
-$ pnpm run test
+To build the server, you can use the following command:
 
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+```sh
+pnpm build
 ```
 
-## Support
+## Running Unit Tests
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Ensure Your Code's Reliability and Correctness:
+
+```sh
+pnpm test
+```
+
+## Create Migrations
+
+To create a migration file
+
+```bash
+$ pnpm migration:create <migration-name>
+```
+
+And move it inside the corresponding service's migration folder: `migrations/*`
+
+Add your migration to the `index.ts` (eg. `migrations/index.ts`)
+
+## Create Seeder
+
+To create a seeds file (must with prefix `seed-*`)
+
+To create a seeder factory file (must with prefix `seed.<factory-name>.factory.ts`)
+
+```bash
+$ pnpm migration:create seed-<seed-name>
+```
+
+And move seed inside the corresponding service's seed folder: `src/libs/database/src/seeds/index.ts`
+
+Add your migration to the `index.ts` (eg. `seeds/index.ts`)
+
+Rule:
+
+- If your seeder uses constant data, please create a factory first
+- If you used factory files to store data, migrate them back for deletion (`down/revert code`)
+- If you don't use factory files, you can ignore the migration code back
+- If you use another module for seed data (eg. `StringUtils`), you must adjust path declaration with (eg. `../../../common/src/utils`) instead of (eg. `src/common`)
+
+## Execute Migrations
+
+Make sure you ONLY run the migrations/seed on your local database.
+
+```.env
+# make sure .env has the following
+PG_DATABASE_URL=postgres://postgres:postgres@localhost:5432/<your-local-database-name>
+```
+
+To show the migrations/seed
+
+```
+$ pnpm migration:show
+```
+
+And then run the migration/seed
+
+```
+$ pnpm migration:run
+```
+
+The cloud environment database migrations will be run via CI/CD.
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Ghalmas Shanditya Putra Agung - [Github](https://github.com/ghalmasshandityaaa)
 
-## License
+## Postman Collection
 
-Nest is [MIT licensed](LICENSE).
+Link: [download](https://drive.google.com/file/d/1d0dmN6mkY5sEpMQq8Yu1Hayxa3_8TRYb/view?usp=sharing)
